@@ -303,13 +303,21 @@ var isAudioFile = function(filename) {
 };
 
 // Return HTML video player 
-var getVideoPlayer = function(data) {
+var getVideoPlayer = function(data, callback) {
+	/*
 	var code  = '<video width=' + config.videos.videosPlayerWidth + ' height=' + config.videos.videosPlayerHeight + ' src="' + data['Path'] + '" controls="controls">';
 		code += '<img src="' + data['Preview'] + '" />';
 		code += '</video>';
-	
+	*/
+	var code  = '<video id="example_video_1" class="video-js vjs-default-skin"'
+				+ ' controls preload="auto" width="640" height="264">'
+				+ ' <source src="' + data['Path'] + '" type="video/mp4" />'
+				+ '<track kind="captions" src="How.I.Met.Your.Mother.S09E10.HDTV.x264-KILLERS.vtt" srclang="en" label="English" default>'
+				+ '</video>';
 	$("#fileinfo img").remove();
 	$('#fileinfo #preview h1').before(code);
+	callback();
+
 	 
 };
 
@@ -1040,7 +1048,9 @@ var getFileInfo = function(file) {
 			$('#fileinfo').find('h1').text(data['Filename']).attr('title', file);
 			$('#fileinfo').find('img').attr('src',data['Preview']);
 			if(isVideoFile(data['Filename']) && config.videos.showVideoPlayer == true) {
-				getVideoPlayer(data);
+				getVideoPlayer(data, function(){
+					videojs("example_video_1");
+				});
 			}
 			if(isAudioFile(data['Filename']) && config.audios.showAudioPlayer == true) {
 				getAudioPlayer(data);

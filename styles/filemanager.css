@@ -17,8 +17,10 @@ body {
 	background-color:#F4F1ED;
 	overflow-x:hidden; /** prevent overflow if #uploader h1 path value is too long */
 }
-
-video, audio {
+#example_video_1 {
+margin: auto;
+}
+audio {
 	margin:3em;
 }
 #uploader {
